@@ -3,11 +3,10 @@ import express from 'express'
 const router = express.Router();
 
 import {addBook, deleteBook, editBook, showBookid, showBooks } from '../controllers/bookController.js';
-
-router.post('/', addBook);
-router.get('/', showBooks);
-
-router.get('/:id',  showBookid);
-router.put('/:id', editBook);
-router.delete('/:id', deleteBook);
-export default router;
+import authenticateToken from '../controllers/middiewares/auth.js';
+router.post('/', authenticateToken, addBook);
+router.get('/', authenticateToken, showBooks);
+router.get('/:id',  authenticateToken, showBookid);
+router.put('/:id', authenticateToken, editBook);
+router.delete('/:id', authenticateToken, deleteBook);
+export default router;  
